@@ -1,0 +1,40 @@
+import re
+
+def simple_chatbot(user_input):
+    # Convert user input to lowercase for case-insensitive matching
+    user_input = user_input.lower()
+
+    # Define patterns and responses
+    patterns = {
+        'greeting': ['hello', 'hi', 'hey'],
+        'goodbye': ['bye', 'goodbye'],
+        'thanks': ['thank', 'thanks', 'thank you'],
+        'about_you': ['who are you', 'what are you'],
+        'default': ['']
+    }
+
+    responses = {
+        'greeting': 'Hello! How can I help you?',
+        'goodbye': 'Goodbye! Have a great day!',
+        'thanks': 'You\'re welcome!',
+        'about_you': 'I am a simple chatbot. My purpose is to assist you.',
+        'default': 'I\'m sorry, I didn\'t understand that.'
+    }
+
+    # Check user input against patterns
+    for intent, patterns_list in patterns.items():
+        for pattern in patterns_list:
+            if re.search(pattern, user_input):
+                return responses[intent]
+
+    # If no match is found, use the default response
+    return responses['default']
+
+# Main loop for interacting with the chatbot
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == 'exit':
+        print("Chatbot: Goodbye!")
+        break
+    response = simple_chatbot(user_input)
+    print("Chatbot:", response)
